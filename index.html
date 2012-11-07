@@ -1,0 +1,1632 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Modern Enterprise Application Configuration with Spring</title>
+
+  <meta name="viewport" content="width=device-width"/>
+
+  <link rel="stylesheet" href="./css/reset.css" type="text/css"/>
+  <link rel="stylesheet" href="./css/showoff.css" type="text/css"/>
+
+  <script type="text/javascript" src="./js/jquery-1.4.2.min.js"></script>
+  <script type="text/javascript" src="./js/jquery.cycle.all.js"></script>
+	<script type="text/javascript" src="./js/jquery-print.js"></script>
+  <script type="text/javascript" src="./js/jquery.batchImageLoad.js"></script>
+
+  <script type="text/javascript" src="./js/jquery.doubletap-0.1.js"></script>
+
+  <script type="text/javascript" src="./js/fg.menu.js"></script>
+  <script type="text/javascript" src="./js/showoff.js"></script>
+  <script type="text/javascript" src="./js/jTypeWriter.js"> </script>
+  <script type="text/javascript" src="./js/sh_main.min.js"></script>
+  <script type="text/javascript" src="./js/core.js"></script>
+  <script type="text/javascript" src="./js/showoffcore.js"></script>
+  <script type="text/javascript" src="./js/coffee-script.js"></script>
+
+  <link type="text/css" href="./css/fg.menu.css" media="screen" rel="stylesheet" />
+  <link type="text/css" href="./css/theme/ui.all.css" media="screen" rel="stylesheet" />
+  <link type="text/css" href="./css/sh_style.css" rel="stylesheet" >
+
+  
+
+  
+
+  <script type="text/javascript">
+  $(function(){
+      setupPreso(false, './');
+  });
+  </script>
+
+</head>
+
+<body>
+
+<a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="navmenu"><span class="ui-icon ui-icon-triangle-1-s"></span>slides</a>
+<div id="navigation" class="hidden"></div>
+
+<div id="help">
+  <table>
+    <tr><td class="key">z, ?</td><td>toggle help (this)</td></tr>
+    <tr><td class="key">space, &rarr;</td><td>next slide</td></tr>
+    <tr><td class="key">shift-space, &larr;</td><td>previous slide</td></tr>
+    <tr><td class="key">d</td><td>toggle debug mode</td></tr>
+    <tr><td class="key">## &lt;ret&gt;</td><td>go to slide #</td></tr>
+    <tr><td class="key">c, t</td><td>table of contents (vi)</td></tr>
+    <tr><td class="key">f</td><td>toggle footer</td></tr>
+    <tr><td class="key">r</td><td>reload slides</td></tr>
+    <tr><td class="key">n</td><td>toggle notes</td></tr>
+    <tr><td class="key">p</td><td>run preshow</td></tr>
+  </table>
+</div>
+
+<div class="buttonNav">
+  <input type="submit" onClick="prevStep();" value="prev"/>
+  <input type="submit" onClick="nextStep();" value="next"/>
+</div>
+
+<div id="preso">loading presentation...</div>
+<div id="footer">
+  <span id="slideInfo"></span>
+  <span id="debugInfo"></span>
+  <span id="notesInfo"></span>
+</div>
+
+<div id="slides" class="offscreen" style="display:none;">
+<div class="slide" data-transition="none"><div class="content center" ref="slides/slides/1">
+<p><img src="./file/slides/spring-leaf.png" alt="spring leaf" height="296"/>
+</p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="slides/slides/2">
+<h1>modern enterprise app config</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/3">
+<h1>chris beams</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/4">
+<h1>you</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/5">
+<h1>modern enterprise app config</h1>
+
+<p class="notes">we'll get to spring in a bit; first I want
+to talk about what I mean by...</p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="slides/slides/6">
+<h1><em>enterprise</em></h1>
+
+<ul>
+<li>think big</li>
+<li>(big enough to hire own devs)</li>
+<li>typically <em>not</em> tech companies</li>
+<li>finance, media, insurance, gov't, ...</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="slides/slides/7">
+<h1>enterprise <em>application</em></h1>
+
+<ul>
+<li>long-lived</li>
+<li>... teams change over time</li>
+<li>... tech and requirements do too</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="slides/slides/8">
+<h1>enterprise <em>application</em></h1>
+
+<ul>
+<li>large</li>
+<li>... in size of codebase</li>
+<li>... in no. of devs</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="slides/slides/9">
+<h1>enterprise <em>application</em></h1>
+
+<ul>
+<li>legacy and diversity are the rule</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="slides/slides/10">
+<h1>enterprise app <em>configuration</em></h1>
+
+<ul>
+<li>what components are involved?</li>
+<li>how are they parameterized?</li>
+<li>what dependencies exist?</li>
+<li>how are they satisfied?</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="slides/slides/11">
+<h1><em>modern</em> enterprise app config</h1>
+
+<ul>
+<li>concise</li>
+<li>comprehensive</li>
+<li>clear and communicative</li>
+<li>flexible and extensible</li>
+<li>code-based and typesafe</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/12">
+<p><img src="/image/slides/spring-leaf.png" alt="spring leaf" height="296"/>
+
+<p class="notes">so I want to talk about how spring helps address the whole space
+of modern enterprise app config but first, it's important to ask "what
+is Spring?" a lot of hands went up about having experience with Spring,
+but what does that actually mean? most of you probably have experience
+with Spring Framework, and that's what I commit on</p>
+</p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="slides/slides/13">
+<h1>the Spring mission</h1>
+
+<ul>
+<li>to provide comprehensive infrastructural support for building enterprise applications</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/14">
+<h1>ok... but what exactly <em>is</em> Spring?</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/15">
+<h1>Spring Framework 1.x</h1>
+
+<p><img src="./file/slides/spring-framework-overview-1.x.gif" alt="spring-framework-overview-1.x.gif"/></p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/16">
+<h1>(2004)</h1>
+
+<p><img src="./file/slides/spring-framework-overview-1.x.gif" alt="spring-framework-overview-1.x.gif"/></p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/17">
+<h1>2004</h1>
+
+<h1><code>spring ~= spring-framework</code></h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/18">
+<h1>Spring Framework 3.x</h1>
+
+<p><img src="./file/slides/spring-framework-overview-3.x.png" alt="spring-framework-overview-3.x.gif"/></p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/19">
+<h1>(2012)</h1>
+
+<p><img src="./file/slides/spring-framework-overview-3.x.png" alt="spring-framework-overview-3.x.gif"/></p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/20">
+<h1>2012</h1>
+
+<h1><code>spring != spring-framework</code></h1>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="slides/slides/21">
+<h1>2012</h1>
+
+<h1><code>spring &gt;&gt; spring-framework</code></h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="slides/slides/22">
+<h1><code>spring ==</code></h1>
+
+<ul>
+<li><code>spring-framework</code></li>
+<li><code>spring-security</code></li>
+<li><code>spring-integration</code></li>
+<li><code>spring-batch</code></li>
+<li><code>spring-data-*</code></li>
+<li><code>spring-social</code></li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="slides/slides/23">
+<h1><code>spring ==</code></h1>
+
+<ul>
+<li><code>spring-roo</code></li>
+<li><code>spring-amqp</code></li>
+<li><code>spring-webflow</code></li>
+<li><code>spring-ws</code></li>
+<li><code>spring-net</code></li>
+<li><code>...</code></li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/24">
+<h1><code>spring == spring-*</code></h1>
+</div>
+</div><div class="slide" data-transition="scrollUp"><div class="content center" ref="slides/slides/25">
+<p><img src="/image/slides/spring-stack.png" alt="spring stack diagram" height="760"/>
+</p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="slides/slides/26">
+<h1><code>spring ==</code></h1>
+
+<h2>comprehensive infrastructural support</h2>
+
+<ul>
+<li>...and there's a lot of infrastructure out there!</li>
+<li><em>configuration</em> is just one (important) concern</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="slides/slides/27">
+<h1>which brings us back to...</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/28">
+<h1>modern enterprise app config</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/29">
+<h1>the approach</h1>
+
+<pre><code>                                        &#xB7;
+
+
+
+
+
+
+
+
+
+                                        &#xB7;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/30">
+<h1>the approach</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+
+
+
+
+
+
+
+
+                                        &#xB7;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/31">
+<h1>the approach</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+
+configuration
+instructions
+
+
+
+
+
+                                        &#xB7;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="slides/slides/32">
+<h1>the approach</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+                            &#x2193;
+configuration    &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+instructions   &#x2192; &#x2502; the Spring container&#x2502;
+                 &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+
+
+
+
+                                        &#xB7;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="slides/slides/33">
+<h1>the approach</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+                            &#x2193;
+configuration    &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+instructions   &#x2192; &#x2502; (ApplicationContext)&#x2502;
+                 &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+
+
+
+
+                                        &#xB7;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="slides/slides/34">
+<h1>the approach</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+                            &#x2193;
+configuration    &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+instructions   &#x2192; &#x2502; the Spring container&#x2502;
+                 &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+
+
+
+
+                                        &#xB7;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="slides/slides/35">
+<h1>the approach</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+                            &#x2193;
+configuration    &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+instructions   &#x2192; &#x2502; the Spring container&#x2502;
+                 &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                            &#x21CA;
+               &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+               &#x2502; fully configured system &#x2502;
+               &#x2502;      ready for use      &#x2502;
+               &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="scrollLeft"><div class="content bullets incremental" ref="slides/slides/36">
+<h1>you get</h1>
+
+<ul>
+<li>one consistent mechanism for config</li>
+<li>fail-fast behavior at startup</li>
+<li>dependency <em>injection</em> vs dependency <em>lookup</em></li>
+<li>... leading to simple, testable POJO components</li>
+<li>ability to enhance behavior through AOP</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="scrollRight"><div class="content" ref="slides/slides/37">
+<h1>config style</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+                            &#x2193;
+configuration    &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+instructions   &#x2192; &#x2502; the Spring container&#x2502;
+                 &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                            &#x21CA;
+               &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+               &#x2502; fully configured system &#x2502;
+               &#x2502;      ready for use      &#x2502;
+               &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="slides/slides/38">
+<h1>config style</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+                            &#x2193;
+  &lt;beans&gt;        &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+    XML        &#x2192; &#x2502; the Spring container&#x2502;
+                 &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                            &#x21CA;
+               &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+               &#x2502; fully configured system &#x2502;
+               &#x2502;      ready for use      &#x2502;
+               &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="scrollLeft"><div class="content" ref="slides/slides/39">
+<pre class="sh_xml"><code>&lt;beans/&gt;</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/40">
+<pre class="sh_xml"><code>&lt;beans&gt;
+
+&lt;/beans&gt;</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/41">
+<pre class="sh_xml"><code>&lt;beans&gt;
+    &lt;bean id="foo" class="com.foo.Foo"/&gt;
+&lt;/beans&gt;</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/42">
+<pre class="sh_xml"><code>&lt;beans&gt;
+    &lt;bean id="foo" class="com.foo.Foo"/&gt;
+
+    &lt;bean id="bar" class="com.foo.Bar"&gt;
+       &lt;property name="foo" ref="foo"/&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/43">
+<pre class="sh_xml"><code>&lt;beans&gt;
+    &lt;bean id="foo" class="com.foo.Foo"/&gt;
+
+    &lt;bean id="bar" class="com.foo.Bar"&gt;
+       &lt;property name="foo" ref="foo"/&gt;
+    &lt;/bean&gt;
+
+    &lt;bean .../&gt;
+&lt;/beans&gt;</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/44">
+<pre class="sh_xml"><code>&lt;beans&gt;
+    &lt;bean id="foo" class="com.foo.Foo"/&gt;
+
+    &lt;bean id="bar" class="com.foo.Bar"&gt;
+       &lt;property name="foo" ref="foo"/&gt;
+    &lt;/bean&gt;
+
+    &lt;bean .../&gt;
+
+    &lt;bean .../&gt;
+&lt;/beans&gt;</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/45">
+<pre class="sh_xml"><code>&lt;beans&gt;
+    &lt;bean id="foo" class="com.foo.Foo"/&gt;
+
+    &lt;bean id="bar" class="com.foo.Bar"&gt;
+       &lt;property name="foo" ref="foo"/&gt;
+    &lt;/bean&gt;
+
+    &lt;bean .../&gt;
+
+    &lt;bean .../&gt;
+
+    &lt;bean .../&gt;
+
+
+&lt;/beans&gt;</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/46">
+<pre class="sh_xml"><code>&lt;beans&gt;
+    &lt;bean id="foo" class="com.foo.Foo"/&gt;
+
+    &lt;bean id="bar" class="com.foo.Bar"&gt;
+       &lt;property name="foo" ref="foo"/&gt;
+    &lt;/bean&gt;
+
+    &lt;bean .../&gt;
+
+    &lt;bean .../&gt;
+
+    &lt;bean .../&gt;
+
+    &lt;import resource="more-beans.xml"/&gt;
+&lt;/beans&gt;</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets" ref="slides/slides/47">
+<h1><code>&lt;beans&gt;</code> xml</h1>
+
+<ul>
+<li>simple</li>
+<li>general purpose</li>
+<li>flexible</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller subsection" ref="slides/slides/48">
+<h1>but...</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center incremental bullets" ref="slides/slides/49">
+<h1><code>&lt;beans&gt;</code> xml</h1>
+
+<ul>
+<li>verbose</li>
+<li>not typesafe</li>
+<li>wants special tooling</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content center incremental bullets" ref="slides/slides/50">
+<h1><code>&lt;namespace:*&gt;</code> xml helps</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/51">
+<h1>e.g.</h1>
+
+<pre class="sh_xml"><code>&lt;tx:annotation-driven/&gt;
+&lt;aop:aspectj-autoproxy/&gt;
+&lt;jee:jndi-lookup/&gt;
+&lt;util:list/&gt;</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center incremental bullets" ref="slides/slides/52">
+<h1><code>&lt;namespace:*&gt;</code> xml</h1>
+
+<ul>
+<li>concise</li>
+<li>powerful</li>
+<li>easier to use</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller subsection" ref="slides/slides/53">
+<h1>but...</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center incremental bullets" ref="slides/slides/54">
+<h1><code>&lt;namespace:*&gt;</code> xml</h1>
+
+<ul>
+<li>opaque</li>
+<li>non-extensible</li>
+<li>difficult to <a href="http://static.springsource.org/spring/docs/2.0.x/reference/extensible-xml.html">write your own</a></li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="scrollRight"><div class="content" ref="slides/slides/55">
+<h1>config style</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+                            &#x2193;
+  &lt;beans&gt;        &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+    XML        &#x2192; &#x2502; the Spring container&#x2502;
+                 &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                            &#x21CA;
+               &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+               &#x2502; fully configured system &#x2502;
+               &#x2502;      ready for use      &#x2502;
+               &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="slides/slides/56">
+<h1>config style</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+                            &#x2193;
+  &lt;beans&gt; +      &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+ &lt;namespace:*&gt; &#x2192; &#x2502; the Spring container&#x2502;
+    XML          &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                            &#x21CA;
+               &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+               &#x2502; fully configured system &#x2502;
+               &#x2502;      ready for use      &#x2502;
+               &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="slides/slides/57">
+<h1>config style</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+                            &#x2193;
+ @Component-     &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+   scanning    &#x2192; &#x2502; the Spring container&#x2502;
++ @Autowired     &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                            &#x21CA;
+               &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+               &#x2502; fully configured system &#x2502;
+               &#x2502;      ready for use      &#x2502;
+               &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="scrollLeft"><div class="content" ref="slides/slides/58">
+<pre class="sh_java"><code>
+@Component
+public class Foo {
+    // ...
+}
+
+@Component
+public class Bar {
+    private Foo foo;
+
+    @Autowired
+    public void setFoo(Foo foo) {
+        this.foo = foo;
+    }
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets" ref="slides/slides/59">
+<h1><code>@Component</code>-scanning + <code>@Autowired</code></h1>
+
+<ul>
+<li>eliminates a lot of xml</li>
+<li><em>really</em> concise, convenient</li>
+<li>now widely used</li>
+<li>especially for MVC <code>@Controllers</code></li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller subsection" ref="slides/slides/60">
+<h1>but...</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets" ref="slides/slides/61">
+<h1><code>@Component</code>-scanning + <code>@Autowired</code></h1>
+
+<ul>
+<li>can't wire up third-party code</li>
+<li>ambiguities can arise (enter <code>@Qualifier</code>)</li>
+<li>still requires xml to bootstrap</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller incremental bullets" ref="slides/slides/62">
+<h1>I mean, if you've got this</h1>
+
+<pre class="sh_java"><code>package com.foo;
+
+@Component
+public class Bar {
+    @Autowired
+    public void setFoo(Foo foo) { ... }
+}</code></pre>
+
+<br/><br/><br/>
+
+
+<br/><br/><br/>
+
+
+<br/><br/><br/>
+
+
+<br/><br/>
+
+
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller incremental bullets" ref="slides/slides/63">
+<h1>I mean, if you've got this</h1>
+
+<pre class="sh_java"><code>package com.foo;
+
+@Component
+public class Bar {
+    @Autowired
+    public void setFoo(Foo foo) { ... }
+}</code></pre>
+
+<h1>... then <em>this</em> is kind of ironic, right?</h1>
+
+<pre class="sh_xml"><code>&lt;context:component-scan base-package="com.foo"/&gt;</code></pre>
+
+<p class="notes">TODO</p>
+</div>
+</div><div class="slide" data-transition="scrollRight"><div class="content" ref="slides/slides/64">
+<h1>config style</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+                            &#x2193;
+ @Component-     &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+   scanning    &#x2192; &#x2502; the Spring container&#x2502;
++ @Autowired     &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                            &#x21CA;
+               &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+               &#x2502; fully configured system &#x2502;
+               &#x2502;      ready for use      &#x2502;
+               &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="slides/slides/65">
+<h1>config style</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+                            &#x2193;
+@Configuration   &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+  + @Bean      &#x2192; &#x2502; the Spring container&#x2502;
+                 &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                            &#x21CA;
+               &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+               &#x2502; fully configured system &#x2502;
+               &#x2502;      ready for use      &#x2502;
+               &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="scrollLeft"><div class="content smaller" ref="slides/slides/66">
+<h1>bean definition</h1>
+
+<pre class="sh_java"><code>
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public QuoteService quoteService() {
+        RealTimeQuoteService quoteService = ...;
+
+        return quoteService;
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/67">
+<h1>bean definition</h1>
+
+<pre class="sh_java"><code>// @Configuration classes =~ &lt;beans/&gt; documents
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public QuoteService quoteService() {
+        RealTimeQuoteService quoteService = ...;
+
+        return quoteService;
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/68">
+<h1>bean definition</h1>
+
+<pre class="sh_java"><code>
+@Configuration
+public class AppConfig {
+    // @Bean methods ~= &lt;bean/&gt; elements
+    @Bean
+    public QuoteService quoteService() {
+        RealTimeQuoteService quoteService = ...;
+
+        return quoteService;
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/69">
+<h1>bean definition</h1>
+
+<pre class="sh_java"><code>
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public QuoteService quoteService() {
+        RealTimeQuoteService quoteService = // instantiate
+
+        return quoteService;
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/70">
+<h1>bean definition</h1>
+
+<pre class="sh_java"><code>
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public QuoteService quoteService() {
+        RealTimeQuoteService quoteService = ...;
+        // configure
+        return quoteService;
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/71">
+<h1>bean definition</h1>
+
+<pre class="sh_java"><code>
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public QuoteService quoteService() {
+        RealTimeQuoteService quoteService = ...;
+
+        return quoteService; // object managed by Spring
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/72">
+<h1>bean definition</h1>
+
+<pre class="sh_java"><code>@Import(OtherConfig.class) // =~ &lt;import/&gt;
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public QuoteService quoteService() {
+        RealTimeQuoteService quoteService = ...;
+
+        return quoteService;
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/73">
+<h1>bean definition</h1>
+
+<pre class="sh_java"><code>@Import(OtherConfig.class)
+@Configuration
+public class AppConfig {
+    @Autowired QuoteSource quoteSource; // from OtherConfig
+    @Bean
+    public QuoteService quoteService() {
+        RealTimeQuoteService quoteService = ...;
+
+        return quoteService;
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/74">
+<h1>bean definition</h1>
+
+<pre class="sh_java"><code>@Import(OtherConfig.class)
+@Configuration
+public class AppConfig {
+    @Autowired QuoteSource quoteSource;
+    @Bean
+    public QuoteService quoteService() {
+        RealTimeQuoteService quoteService = ...;
+        quoteService.setQuoteSource(quoteSource); // inject
+        return quoteService;
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/75">
+<h1>bootstrap and use</h1>
+
+<pre class="sh_java"><code>
+public class Main {
+
+  public static void main(String... args) {
+
+
+
+
+
+
+
+
+
+  }
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/76">
+<h1>bootstrap and use</h1>
+
+<pre class="sh_java"><code>
+public class Main {
+
+  public static void main(String... args) {
+
+    ApplicationContext ctx =
+      new AnnotationConfigApplicationContext(AppConfig.class);
+
+    QuoteService quoteService =
+      ctx.getBean(QuoteService.class);
+
+    System.out.println(quoteService.currentValue("AAPL"));
+
+  }
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/77">
+<h1>bootstrap and use</h1>
+
+<pre class="sh_java"><code>
+public class Main {
+
+  public static void main(String... args) {
+    // bootstrap the Spring container
+    ApplicationContext ctx =
+      new AnnotationConfigApplicationContext(AppConfig.class);
+
+    QuoteService quoteService =
+      ctx.getBean(QuoteService.class);
+
+    System.out.println(quoteService.currentValue("AAPL"));
+
+  }
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/78">
+<h1>bootstrap and use</h1>
+
+<pre class="sh_java"><code>
+public class Main {
+
+  public static void main(String... args) {
+
+    ApplicationContext ctx =
+      new AnnotationConfigApplicationContext(AppConfig.class);
+    // retrieve the bean we want to use in typesafe fashion
+    QuoteService quoteService =
+      ctx.getBean(QuoteService.class);
+
+    System.out.println(quoteService.currentValue("AAPL"));
+
+  }
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/79">
+<h1>bootstrap and use</h1>
+
+<pre class="sh_java"><code>
+public class Main {
+
+  public static void main(String... args) {
+
+    ApplicationContext ctx =
+      new AnnotationConfigApplicationContext(AppConfig.class);
+
+    QuoteService quoteService =
+      ctx.getBean(QuoteService.class);
+    // use the bean however desired
+    System.out.println(quoteService.currentValue("AAPL"));
+
+  }
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets" ref="slides/slides/80">
+<h1><code>@Configuration</code></h1>
+
+<ul>
+<li>typesafe, object-oriented</li>
+<li>can configure any component</li>
+<li>complete programmatic control</li>
+<li>no special tooling required</li>
+<li>centralized, blueprint-style</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller subsection" ref="slides/slides/81">
+<h1>but...</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets" ref="slides/slides/82">
+<h1><code>@Configuration</code></h1>
+
+<ul>
+<li>no equivalent to <code>&lt;namespace:*/&gt;</code></li>
+<li>xml still required for tx mgmt, aop, etc</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/83">
+<h1><code>@Enable*</code></h1>
+
+<br/><br/>
+
+
+<br/><br/>
+
+
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/84">
+<h1><code>@Enable*</code></h1>
+
+<p> <em>(and friends)</em></p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/85">
+<h1>e.g.</h1>
+
+<pre class="sh_java"><code>@EnableTransactionManagement
+@EnableAspectJAutoProxy
+@EnableLoadTimeWeaving
+@EnableScheduling
+@EnableAsync
+@EnableWebMvc
+@ComponentScan</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/86">
+<h1>simple.</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller incremental bullets" ref="slides/slides/87">
+<h1>if you've got this</h1>
+
+<pre class="sh_java"><code>package com.foo;
+
+@Component
+public class Bar {
+    @Autowired
+    public void setFoo(Foo foo) { ... }
+}</code></pre>
+
+<br/><br/><br/><br/>
+
+
+<br/><br/><br/><br/>
+
+
+<br/><br/><br/>
+
+
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller incremental bullets" ref="slides/slides/88">
+<h1>if you've got this</h1>
+
+<pre class="sh_java"><code>package com.foo;
+
+@Component
+public class Bar {
+    @Autowired
+    public void setFoo(Foo foo) { ... }
+}</code></pre>
+
+<h1>... then <em>this</em> is kind of ironic ...</h1>
+
+<pre class="sh_xml"><code>&lt;context:component-scan base-package="com.foo"/&gt;</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller incremental bullets" ref="slides/slides/89">
+<h1>I mean, if you've got this</h1>
+
+<pre class="sh_java"><code>package com.foo;
+
+@Component
+public class Bar {
+    @Autowired
+    public void setFoo(Foo foo) { ... }
+}</code></pre>
+
+<h1>... but <em>this</em> makes a lot more sense.</h1>
+
+<pre class="sh_java"><code>@ComponentScan("com.foo")</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller incremental bullets" ref="slides/slides/90">
+<h1>and if you've got this</h1>
+
+<pre class="sh_java"><code>package com.foo;
+
+@Repository
+public class WidgetRepo {
+    @Transactional
+    public void add(Widget widget) { ... }
+}</code></pre>
+
+<br/><br/><br/><br/>
+
+
+<br/><br/><br/><br/>
+
+
+<br/><br/><br/>
+
+
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller incremental bullets" ref="slides/slides/91">
+<h1>and if you've got this</h1>
+
+<pre class="sh_java"><code>package com.foo;
+
+@Repository
+public class WidgetRepo {
+    @Transactional
+    public void add(Widget widget) { ... }
+}</code></pre>
+
+<h1>... then why do this ...</h1>
+
+<pre class="sh_xml"><code>&lt;tx:annotation-driven/&gt;</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller incremental bullets" ref="slides/slides/92">
+<h1>and if you've got this</h1>
+
+<pre class="sh_java"><code>package com.foo;
+
+@Repository
+public class WidgetRepo {
+    @Transactional
+    public void add(Widget widget) { ... }
+}</code></pre>
+
+<h1>... when you could do this?</h1>
+
+<pre class="sh_xml"><code>@EnableTransactionManagement</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/93">
+<h1>example</h1>
+
+<br/><br/><br/><br/>
+
+
+<br/><br/>
+
+
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/94">
+<h1>example</h1>
+
+<pre class="sh_java"><code>@EnableScheduling</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/95">
+<h1>some component</h1>
+
+<pre class="sh_java"><code>package com.foo;
+
+public class ChatterBox {
+
+
+    public void saySomething() {
+        System.out.println(randomWord());
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/96">
+<h1>some component</h1>
+
+<pre class="sh_java"><code>package com.foo;
+
+public class ChatterBox {
+
+    @Scheduled(fixedRate=1000)
+    public void saySomething() {
+        System.out.println(randomWord());
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/97">
+<h1>some component</h1>
+
+<pre class="sh_java"><code>package com.foo;
+
+public class ChatterBox {
+                               // (@Scheduled has been
+    @Scheduled(fixedRate=1000) // around since Spring 3.0)
+    public void saySomething() {
+        System.out.println(randomWord());
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/98">
+<h1>some component</h1>
+
+<pre class="sh_java"><code>package com.foo;
+
+public class ChatterBox {
+                               // "hey Spring, call this
+    @Scheduled(fixedRate=1000) // method every second"
+    public void saySomething() {
+        System.out.println(randomWord());
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/99">
+<h1>configuration</h1>
+
+<pre class="sh_java"><code>package com.foo.config;
+
+
+@Configuration
+public class Config {
+
+    @Bean
+    public ChatterBox chatterBox() {
+        return new ChatterBox();
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content smaller" ref="slides/slides/100">
+<h1>configuration</h1>
+
+<pre class="sh_java"><code>package com.foo.config;
+
+@Configuration
+@EnableScheduling
+public class Config {
+
+    @Bean
+    public ChatterBox chatterBox() {
+        return new ChatterBox();
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/101">
+<h1>configuration</h1>
+
+<pre class="sh_java"><code>package com.foo.config;
+
+@Configuration
+@EnableScheduling // look for and process @Scheduled
+public class Config {
+
+    @Bean
+    public ChatterBox chatterBox() {
+        return new ChatterBox();
+    }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/102">
+<h1>configuration</h1>
+
+<pre class="sh_java"><code>package com.foo.config;
+
+@Configuration
+@EnableScheduling
+public class Config {
+
+    @Bean
+    public ChatterBox chatterBox() { // Spring ensures
+        return new ChatterBox(); // saySomething() method is
+    }                            // called once per second
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets" ref="slides/slides/103">
+<h1><code>@Enable*</code> benefits</h1>
+
+<ul>
+<li>easy to see what's going on</li>
+<li>easy to write your own</li>
+<li>scales smoothly from <a href="http://static.springsource.org/spring/docs/3.1.x/javadoc-api/org/springframework/scheduling/annotation/EnableScheduling.html">simple</a> to <a href="http://static.springsource.org/spring/docs/3.1.x/javadoc-api/org/springframework/web/servlet/config/annotation/EnableWebMvc.html">sophisticated</a></li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content center incremental bullets" ref="slides/slides/104">
+<h1>code-based configuration</h1>
+
+<ul>
+<li>is complete as of Spring Framework 3.1</li>
+<li>can configure all major container features</li>
+<li>mix and match styles as desired</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller subsection" ref="slides/slides/105">
+<h1>but...</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller subsection" ref="slides/slides/106">
+<h1>but... ?</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center incremental bullets" ref="slides/slides/107">
+<h1>no buts.</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center incremental bullets" ref="slides/slides/108">
+<h1>no buts.</h1>
+
+<ul>
+<li>code-based configuration:</li>
+<li>can be adopted incrementally</li>
+<li>but can go <em>all the way</em></li>
+<li>which means...</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/109">
+<p><img src="./file/slides/xml-is-over.jpg" alt="xml-is-over.jpg"/></p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/110">
+<h1><strong>XML IS OVER!</strong></h1>
+
+<br/><br/><br/><br/>
+
+
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/111">
+<h1><strong>XML IS OVER!</strong></h1>
+
+<p>for dependency injection</p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/112">
+<h1><strong>XML IS OVER!</strong></h1>
+
+<p>for enabling features of the Spring container</p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/113">
+<h1><strong>XML IS OVER!</strong></h1>
+
+<p>for Hibernate integration, too</p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center bullets incremental" ref="slides/slides/114">
+<h1>Hibernate 4 support</h1>
+
+<ul>
+<li>Spring 3.1 builds against Hibernate 4</li>
+<li>new orm.hibernate4 packaging</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/115">
+<h1>familiar?</h1>
+
+<pre class="sh_xml"><code>&lt;bean id="sessionFactory"
+    class="org.sfwk.orm.hib3.AnnotationSessionFactoryBean"&gt;
+  &lt;property name="dataSource" ref="myDataSource"/&gt;
+  &lt;property name="annotatedClasses"&gt;
+    &lt;list&gt;
+      &lt;value&gt;com.foo.Person&lt;/value&gt;
+      &lt;value&gt;com.foo.Account&lt;/value&gt;
+    &lt;/list&gt;
+  &lt;/property&gt;
+  &lt;property name="hibernateProperties"&gt;
+    &lt;value&gt;
+      hibernate.dialect=org.hibernate.dialect.HSQLDialect
+    &lt;/value&gt;
+  &lt;/property&gt;
+&lt;/bean&gt;</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/116">
+<h1>we can do better than that.</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/117">
+<pre class="sh_java"><code>@Bean
+public SessionFactory sessionFactory() {
+    return new LocalSessionFactoryBuilder(dataSource())
+        .addAnnotatedClasses(Person.class, Account.class)
+        .buildSessionFactory();
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/118">
+<h1><strong>XML IS OVER!</strong></h1>
+
+<br/><br/><br/><br/>
+
+
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/119">
+<h1><strong>XML IS OVER!</strong></h1>
+
+<p>and not just <em>Spring</em> XML</p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center incremental bullets" ref="slides/slides/120">
+<h1>JPA</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/121">
+<h1>persistence.xml</h1>
+
+<pre class="sh_xml"><code>&lt;persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="..."
+             xsi:schemaLocation="..."
+             version="2.0"&gt;
+   &lt;persistence-unit name="sample"&gt;
+      &lt;jta-data-source&gt;java:/DefaultDS&lt;/jta-data-source&gt;
+      &lt;properties&gt;
+         &lt;property name="hibernate.dialect"
+                 value="org.hibernate.dialect.HSQLDialect"/&gt;
+      &lt;/properties&gt;
+   &lt;/persistence-unit&gt;
+&lt;/persistence&gt;</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/122">
+<h1>say goodbye.</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/123">
+<pre class="sh_java"><code>@Bean
+public LocalContainerEntityManagerFactoryBean emf() {
+    LocalContainerEntityManagerFactoryBean emf =
+        new LocalContainerEntityManagerFactoryBean();
+    emf.setDataSource(dataSource());
+    emf.setPersistenceXmlLocation(
+        "classpath:META-INF/persistence.xml");
+    return emf;
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/124">
+<pre class="sh_java"><code>@Bean
+public LocalContainerEntityManagerFactoryBean emf() {
+    LocalContainerEntityManagerFactoryBean emf =
+        new LocalContainerEntityManagerFactoryBean();
+    emf.setDataSource(dataSource());
+    emf.setPersistenceXmlLocation(
+        "classpath:META-INF/persistence.xml"); // no more!
+    return emf;
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/125">
+<pre class="sh_java"><code>@Bean
+public LocalContainerEntityManagerFactoryBean emf() {
+    LocalContainerEntityManagerFactoryBean emf =
+        new LocalContainerEntityManagerFactoryBean();
+    emf.setDataSource(dataSource());
+
+    emf.setPackagesToScan("com.foo.domain");
+    return emf;
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/126">
+<pre class="sh_java"><code>@Bean
+public LocalContainerEntityManagerFactoryBean emf() {
+    LocalContainerEntityManagerFactoryBean emf =
+        new LocalContainerEntityManagerFactoryBean();
+    emf.setDataSource(dataSource());
+    // scan classpath for JPA @Entity types
+    emf.setPackagesToScan("com.foo.domain");
+    return emf;
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/127">
+<h1><strong>XML IS OVER!</strong></h1>
+
+<p>and not just <em>Spring</em> XML</p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/128">
+<h1>web.xml</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller bullets incremental" ref="slides/slides/129">
+<h1>web.xml</h1>
+
+<pre class="sh_xml"><code>&lt;web-app&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;dispatcher&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;
+      org.springframework.web.servlet.DispatcherServlet
+    &lt;/servlet-class&gt;
+    &lt;init-param&gt;
+      &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+      &lt;param-value&gt;
+        /WEB-INF/spring/dispatcher-config.xml
+      &lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;dispatcher&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+&lt;web-app&gt;</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="slides/slides/130">
+<h1>gone.</h1>
+
+<ul>
+<li>(if you've got Servlet 3)</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="slides/slides/131">
+<pre class="sh_java"><code>public class WebInit implements WebApplicationInitializer {
+
+   @Override
+   public void onStartup(ServletContext container) {
+     AnnotationConfigWebApplicationContext ctx =
+       new AnnotationConfigWebApplicationContext()
+
+     ctx.register(DispatcherConfig.class);
+
+     ServletRegistration.Dynamic dispatcher =
+       container.addServlet(
+        "dispatcher", new DispatcherServlet(ctx));
+
+     dispatcher.setLoadOnStartup(1);
+     dispatcher.addMapping("/");
+   }
+
+}</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets" ref="slides/slides/132">
+<h1><code>WebApplicationInitializer</code></h1>
+
+<ul>
+<li>allows code-based config of servlet container</li>
+<li>builds on Servlet 3's <code>ServletContainerInitializer</code></li>
+<li>auto-detected on Servlet container startup</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets" ref="slides/slides/133">
+<ul>
+<li><del>application-context.xml</del></li>
+<li><del>persistence.xml</del></li>
+<li><del>web.xml</del></li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/134">
+<h1><strong>XML IS OVER.</strong></h1>
+
+<br/><br/><br/><br/>
+
+
+
+</div>
+</div><div class="slide" data-transition="fade"><div class="content center" ref="slides/slides/135">
+<p><img src="./file/slides/over.png" alt="over.png"/></p>
+
+<br/><br/><br/>
+
+
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="slides/slides/136">
+<p><img src="./file/slides/if-you-want-it.png" alt="if-you-want-it.png"/></p>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content center" ref="slides/slides/137">
+<h1><strong>XML IS OVER,</strong></h1>
+
+<p>if you want it*</p>
+</div>
+</div><div class="slide" data-transition="scrollUp"><div class="content small" ref="slides/slides/138">
+<h1>*which means that you really shouldn't worry, because XML support is definitely not going anywhere. This is a concern that commonly comes up when we talk about annotations and such, but we've said it before and we'll say it again: XML was, is, and ever will be a first class citizen in Spring. These new features just mean that if you <em>don't</em> want XML, you don't have to use it. That's all. kthx, bye.</h1>
+</div>
+</div><div class="slide" data-transition="scrollRight"><div class="content" ref="slides/slides/139">
+<h1>config style</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+                            &#x2193;
+@Configuration   &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+  + @Bean      &#x2192; &#x2502; the Spring container&#x2502;
+                 &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                            &#x21CA;
+               &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+               &#x2502; fully configured system &#x2502;
+               &#x2502;      ready for use      &#x2502;
+               &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="slides/slides/140">
+<h1>config style</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+                            &#x2193;
+@Configuration   &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+  + @Bean      &#x2192; &#x2502; the Spring container&#x2502;
+ + @Enable*      &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                            &#x21CA;
+               &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+               &#x2502; fully configured system &#x2502;
+               &#x2502;      ready for use      &#x2502;
+               &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content" ref="slides/slides/141">
+<h1>config style</h1>
+
+<pre><code>                     POJOs + 3rd party
+                        components
+   (hybrid)                 &#x2193;
+    &lt;bean&gt; +     &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+  @Component + &#x2192; &#x2502; the Spring container&#x2502;
+@Configuration   &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                            &#x21CA;
+               &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+               &#x2502; fully configured system &#x2502;
+               &#x2502;      ready for use      &#x2502;
+               &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="slides/slides/142">
+<h1>recommendations</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets bullets incremental" ref="slides/slides/143">
+<h1>recommendations</h1>
+
+<ul>
+<li>go for 100% code-based config</li>
+<li><code>@Component</code> + <code>@Autowired</code> for "your" components</li>
+<li><code>@Bean</code> for third-party components</li>
+<li><code>@Enable</code> to control framework features</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="slides/slides/144">
+<h1>environment, profiles, deployment</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets" ref="slides/slides/145">
+<h1>Spring Framework <a href="http://blog.springsource.org/2012/11/05/spring-framework-3-2-rc1-released/">3.2 RC1 is out</a></h1>
+
+<ul>
+<li>Now is the time to test</li>
+<li>RC2 in a few weeks</li>
+<li>GA by year end</li>
+</ul>
+
+</div>
+</div><div class="slide" data-transition="none"><div class="content subsection bullets" ref="slides/slides/146">
+<h1>questions?</h1>
+</div>
+</div><div class="slide" data-transition="none"><div class="content subsection bullets" ref="slides/slides/147">
+<h1>thanks!</h1>
+
+<ul>
+<li><a href="http://twitter.com/cbeams">@cbeams</a> | <a href="http://cbeams.github.com/modern-config">cbeams.github.com/modern-config</a></li>
+<li><a href="http://twitter.com/springframework">@springframework</a> | <a href="github.com/SpringSource/spring-framework">github.com/springsource</a></li>
+</ul>
+
+</div>
+</div></div>
+
+</body>
+</html>
